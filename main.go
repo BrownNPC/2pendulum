@@ -19,7 +19,7 @@ var ASSETS fs.FS
 func main() {
 	rl.SetTraceLogLevel(rl.LogError)
 	err := engine.Run(scenes.Registered, engine.Config{
-		WindowTitle: "change this in main.go",
+		WindowTitle: "double pendulum",
 	}, ASSETS)
 	if err != nil {
 		fmt.Println(err)

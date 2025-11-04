@@ -1,24 +1,44 @@
-package components
+package c
 
-import (
-	"image/color"
+import rl "github.com/gen2brain/raylib-go/raylib"
 
-	rl "github.com/gen2brain/raylib-go/raylib"
-)
-
-type Position rl.Vector2
-type Velocity rl.Vector2
-
-// tags
-type Ball struct{}
-type Plate struct{}
-
-type Circle float32
-
-// width height
-type Size2D struct {
-	Width  int32
-	Height int32
+type Bob struct {
+	// Current Position of the Bob (pixels)
+	Vec2
+	// Mass in arbritary units.
+	Mass float64
+	// Angle of bob from vertical (radians)
+	Theta float64
+	// Angular velocity of Bob (rad/s)
+	Omega float64
+}
+type DoublePendulum struct {
+	// coordinates of the fixed pivot
+	Origin Vec2
+	//Rod length in pixels
+	L1, L2     float64
+	Bob1, Bob2 Bob
+	// Gravitational acceleration (pixels/s2 after scaling).
+	G float64
 }
 
-type Color = color.RGBA
+func NewDefaultDoublePendulum() DoublePendulum {
+	return DoublePendulum{
+		Origin: V2(300, 100),
+		L1:     120,
+		L2:     120,
+		Bob1: Bob{
+			Vec2:  Vec2{},
+			Mass:  10,
+			Theta: rl.Pi / 2,
+			Omega: 0,
+		},
+		Bob2: Bob{
+			Vec2:  Vec2{},
+			Mass:  10,
+			Theta: rl.Pi / 2,
+			Omega: 0,
+		},
+		G: 9.81,
+	}
+}
