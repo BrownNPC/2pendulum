@@ -26,7 +26,7 @@ var V2Z = V2(0, 0)
 
 // convert to raylib vector
 func (v Vec2) R() rl.Vector2 {
-	return rl.Vector2{float64(v.X), float64(v.Y)}
+	return rl.NewVector2(float32(v.X), float32(v.Y))
 }
 func (v Vec2) Add(o Vec2) Vec2      { return V2(v.X+o.X, v.Y+o.Y) }
 func (v Vec2) Sub(o Vec2) Vec2      { return V2(v.X-o.X, v.Y-o.Y) }
