@@ -57,5 +57,20 @@ func (p *DoublePendulum) Step(dt float64) {
 	// D2 := (l2 /l1)D1
 	D2 := (p.L2 / p.L1) * D1
 
-	
+	// Acceleration bob1
+	// (self.mass_bob_2 * self.length_rod_1 * self.omega_1 ** 2 * math.sin(delta) * math.cos(delta) +
+	// self.mass_bob_2 * self.g * math.sin(self.theta_2) * math.cos(delta) +
+	// self.mass_bob_2 * self.length_rod_2 * self.omega_2 ** 2 * math.sin(delta) -
+	// (self.mass_bob_1 + self.mass_bob_2) * self.g * math.sin(self.theta_1)) / denominator_1
+	A1 := bob2.Mass*p.L1*math.Pow(bob1.Omega, 2)*math.Sin(delta)*math.Cos(delta) +
+		bob2.Mass*p.G*math.Sin(bob2.Theta)*math.Cos(delta) +
+		bob2.Mass*p.L2*math.Pow(bob2.Omega, 2)*math.Sin(delta) -
+		(bob1.Mass+bob2.Mass)*p.G*math.Sin(bob1.Theta)
+	A1 /= D1
+
+	A2 := -bob2.Mass*p.L2*math.Pow(bob2.Omega, 2)*math.Sin(delta)*math.Cos(delta) +
+		(bob1.Mass+bob2.Mass)*p.G*math.Sin(bob1.Theta)*math.Cos(delta) -
+		(bob1.Mass+bob2.Mass)*p.L1*math.Pow(bob1.Omega, 2)*math.Sin(delta) -
+		(bob1.Mass+bob2.Mass)*p.G*math.Sin(bob2.Theta)
+	A2 /= D2
 }
